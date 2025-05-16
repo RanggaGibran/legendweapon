@@ -1,5 +1,6 @@
 package id.rnggagib;
 
+import id.rnggagib.legendweapon.managers.AbilityManager;
 import id.rnggagib.legendweapon.managers.ConfigManager;
 import id.rnggagib.legendweapon.managers.MessageManager;
 import id.rnggagib.legendweapon.managers.ParticleManager;
@@ -7,6 +8,7 @@ import id.rnggagib.legendweapon.managers.WeaponManager;
 import id.rnggagib.legendweapon.commands.CommandManager;
 import id.rnggagib.legendweapon.listeners.WeaponListener;
 import id.rnggagib.legendweapon.listeners.PlayerListener;
+import id.rnggagib.legendweapon.listeners.AbilityListener;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -22,6 +24,7 @@ public class LegendWeapon extends JavaPlugin {
     private MessageManager messageManager;
     private WeaponManager weaponManager;
     private ParticleManager particleManager;
+    private AbilityManager abilityManager;
     private CommandManager commandManager;
     private BukkitAudiences adventure;
     private Economy economy;
@@ -37,6 +40,8 @@ public class LegendWeapon extends JavaPlugin {
         configManager.loadConfigs();
         
         messageManager = new MessageManager(this);
+        
+        abilityManager = new AbilityManager(this);
         
         particleManager = new ParticleManager(this);
         
@@ -82,10 +87,12 @@ public class LegendWeapon extends JavaPlugin {
     private void registerListeners() {
         getServer().getPluginManager().registerEvents(new WeaponListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+        getServer().getPluginManager().registerEvents(new AbilityListener(this), this);
     }
     
     public void reload() {
         configManager.loadConfigs();
+        abilityManager.loadAbilities();
         weaponManager.loadWeapons();
         particleManager.reloadParticles();
     }
@@ -108,6 +115,10 @@ public class LegendWeapon extends JavaPlugin {
     
     public ParticleManager getParticleManager() {
         return particleManager;
+    }
+    
+    public AbilityManager getAbilityManager() {
+        return abilityManager;
     }
     
     public BukkitAudiences adventure() {

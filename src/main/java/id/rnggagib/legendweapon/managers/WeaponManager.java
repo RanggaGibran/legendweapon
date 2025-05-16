@@ -87,7 +87,7 @@ public class WeaponManager {
             List<String> lore = section.getStringList("lore");
             
             Map<String, Double> attributes = loadAttributes(section.getConfigurationSection("attributes"));
-            Map<String, Ability> abilities = loadAbilities(section.getConfigurationSection("abilities"));
+            Map<String, Ability> abilities = loadAbilities(weaponId, section.getConfigurationSection("abilities"));
             
             LegendaryWeapon weapon = new LegendaryWeapon(weaponId, name, type, rarity, lore, attributes, abilities);
             weapons.put(weaponId.toLowerCase(), weapon);
@@ -106,19 +106,31 @@ public class WeaponManager {
         return attributes;
     }
     
-    private Map<String, Ability> loadAbilities(ConfigurationSection section) {
+    private Map<String, Ability> loadAbilities(String weaponId, ConfigurationSection section) {
         Map<String, Ability> abilities = new HashMap<>();
         
         if (section != null) {
             ConfigurationSection passiveSection = section.getConfigurationSection("passive");
             if (passiveSection != null) {
                 for (String abilityId : passiveSection.getKeys(false)) {
+                    ConfigurationSection abilityConfig = passiveSection.getConfigurationSection(abilityId);
+                    if (abilityConfig != null) {
+                        Ability ability = plugin.getAbilityManager().createAbilityFromConfig(weaponId, abilityId, abilityConfig, true);
+                        abilities.put(ability.getId(), ability);
+                        plugin.getAbilityManager().registerAbility(ability);
+                    }
                 }
             }
             
             ConfigurationSection activeSection = section.getConfigurationSection("active");
             if (activeSection != null) {
                 for (String abilityId : activeSection.getKeys(false)) {
+                    ConfigurationSection abilityConfig = activeSection.getConfigurationSection(abilityId);
+                    if (abilityConfig != null) {
+                        Ability ability = plugin.getAbilityManager().createAbilityFromConfig(weaponId, abilityId, abilityConfig, false);
+                        abilities.put(ability.getId(), ability);
+                        plugin.getAbilityManager().registerAbility(ability);
+                    }
                 }
             }
         }
