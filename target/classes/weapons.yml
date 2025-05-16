@@ -1,0 +1,209 @@
+weapon-types:
+  sword:
+    item: DIAMOND_SWORD
+    attack-speed: 1.6
+    base-damage: 7
+  axe:
+    item: DIAMOND_AXE
+    attack-speed: 1.0
+    base-damage: 9
+  bow:
+    item: BOW
+    attack-speed: 0.8
+    base-damage: 6
+  staff:
+    item: BLAZE_ROD
+    attack-speed: 2.0
+    base-damage: 5
+
+weapons:
+  flameblade:
+    name: "Flameblade"
+    type: sword
+    rarity: legendary
+    lore:
+      - "A legendary blade forged in dragon fire"
+      - "Burn your enemies with each strike"
+    attributes:
+      damage: 10
+      attack-speed: 1.8
+      critical-chance: 15
+      critical-damage: 200
+    abilities:
+      passive:
+        flame-aura:
+          description: "Sets nearby enemies on fire"
+          range: 3
+          tick-damage: 2
+          duration: 5
+      active:
+        flame-burst:
+          description: "Creates a burst of flames"
+          damage: 15
+          cooldown: 30
+          range: 5
+    animations:
+      swing:
+        particles:
+          - type: flame
+            count: 30
+            speed: 0.1
+          - type: lava
+            count: 5
+            speed: 0.05
+        sounds:
+          - sound: entity.blaze.shoot
+            volume: 1.0
+            pitch: 0.8
+      hit:
+        particles:
+          - type: flame
+            count: 20
+            speed: 0.2
+          - type: explosion
+            count: 1
+            speed: 0
+        sounds:
+          - sound: entity.generic.burn
+            volume: 1.0
+            pitch: 1.2
+      ability:
+        particles:
+          - type: explosion_emitter
+            count: 1
+            speed: 0
+          - type: flame
+            count: 50
+            speed: 0.3
+        sounds:
+          - sound: entity.generic.explode
+            volume: 1.5
+            pitch: 0.7
+            
+  frostbite:
+    name: "Frostbite"
+    type: axe
+    rarity: epic
+    lore:
+      - "Carved from ancient glacier ice"
+      - "Slow and freeze your foes"
+    attributes:
+      damage: 12
+      attack-speed: 0.8
+      critical-chance: 20
+      critical-damage: 180
+    abilities:
+      passive:
+        frost-aura:
+          description: "Slows nearby enemies"
+          range: 4
+          slow-level: 2
+          duration: 3
+      active:
+        ice-spike:
+          description: "Summons ice spikes from the ground"
+          damage: 20
+          cooldown: 40
+          range: 6
+    animations:
+      swing:
+        particles:
+          - type: snowflake
+            count: 25
+            speed: 0.08
+          - type: white_ash
+            count: 10
+            speed: 0.05
+        sounds:
+          - sound: block.glass.break
+            volume: 0.8
+            pitch: 1.5
+      hit:
+        particles:
+          - type: snowflake
+            count: 30
+            speed: 0.2
+          - type: end_rod
+            count: 15
+            speed: 0.1
+        sounds:
+          - sound: block.glass.break
+            volume: 1.0
+            pitch: 0.8
+      ability:
+        particles:
+          - type: end_rod
+            count: 40
+            speed: 0.2
+          - type: soul
+            count: 20
+            speed: 0.1
+        sounds:
+          - sound: block.amethyst_block.chime
+            volume: 1.5
+            pitch: 0.6
+
+  voidwalker:
+    name: "Voidwalker"
+    type: bow
+    rarity: mythic
+    lore:
+      - "Crafted from the essence of the End"
+      - "Arrows pierce through reality itself"
+    attributes:
+      damage: 8
+      attack-speed: 1.0
+      critical-chance: 25
+      critical-damage: 250
+    abilities:
+      passive:
+        void-sight:
+          description: "See enemies through walls when aiming"
+          range: 30
+          duration: 2
+      active:
+        void-burst:
+          description: "Teleport and create an explosion of void energy"
+          damage: 25
+          cooldown: 60
+          range: 15
+    animations:
+      shoot:
+        particles:
+          - type: portal
+            count: 20
+            speed: 0.05
+          - type: dragon_breath
+            count: 15
+            speed: 0.1
+        sounds:
+          - sound: entity.enderman.teleport
+            volume: 0.7
+            pitch: 1.2
+      hit:
+        particles:
+          - type: dragon_breath
+            count: 30
+            speed: 0.2
+          - type: reverse_portal
+            count: 10
+            speed: 0.1
+        sounds:
+          - sound: entity.enderman.scream
+            volume: 1.0
+            pitch: 1.5
+      ability:
+        particles:
+          - type: explosion_emitter
+            count: 1
+            speed: 0
+          - type: portal
+            count: 50
+            speed: 0.3
+          - type: end_rod
+            count: 30
+            speed: 0.2
+        sounds:
+          - sound: entity.enderman.teleport
+            volume: 1.5
+            pitch: 0.6

@@ -1,0 +1,30 @@
+settings:
+  debug-mode: false
+  auto-update: true
+  metrics: true
+  
+weapon-settings:
+  durability-enabled: true
+  level-scaling: true
+  max-level: 100
+  enable-repair: true
+  repair-cost-multiplier: 1.5
+  
+animation-settings:
+  particle-distance: 32
+  sound-distance: 16
+  max-particles-per-animation: 100
+  
+economy:
+  enabled: true
+  currency-symbol: "$"
+  
+storage:
+  type: YAML
+  mysql:
+    host: localhost
+    port: 3306
+    database: legendweapon
+    username: root
+    password: password
+    table-prefix: lw_

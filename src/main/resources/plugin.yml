@@ -1,0 +1,49 @@
+name: legendweapon
+main: id.rnggagib.LegendWeapon
+version: 1.0-SNAPSHOT
+api-version: 1.20
+author: rnggagib
+description: Advanced MMORPG weapon system with dramatic animations and particle effects
+website: https://github.com/rnggagib/legendweapon
+
+softdepend:
+  - PlaceholderAPI
+  - Vault
+
+commands:
+  legendweapon:
+    description: Main plugin command
+    aliases: [lw]
+    usage: /legendweapon [reload|give|list|help]
+  lwgive:
+    description: Give a legendary weapon to a player
+    usage: /lwgive <player> <weapon> [level]
+  lwreload:
+    description: Reload plugin configuration
+    usage: /lwreload
+  lwlist:
+    description: List available weapons
+    usage: /lwlist [page]
+
+permissions:
+  legendweapon.*:
+    description: Gives access to all legendweapon commands
+    default: op
+    children:
+      legendweapon.admin: true
+      legendweapon.use: true
+  legendweapon.admin:
+    description: Allows access to admin commands
+    default: op
+    children:
+      legendweapon.reload: true
+      legendweapon.give: true
+  legendweapon.reload:
+    description: Reload the configuration
+    default: op
+  legendweapon.give:
+    description: Give legendary weapons
+    default: op
+  legendweapon.use:
+    description: Use legendary weapons
+    default: true

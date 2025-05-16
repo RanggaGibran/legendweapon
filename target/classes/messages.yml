@@ -1,0 +1,45 @@
+prefix: "<gradient:#FFD700:#FF8C00>Legend Weapon</gradient> <dark_gray>»</dark_gray>"
+
+general:
+  no-permission: "<red>You don't have permission to use this command.</red>"
+  player-only: "<red>This command can only be used by players.</red>"
+  plugin-reload: "<green>Plugin configuration reloaded successfully!</green>"
+  plugin-enabled: "<green>Plugin enabled successfully!</green>"
+  plugin-disabled: "<red>Plugin disabled.</red>"
+
+weapons:
+  give-success: "<green>Successfully gave {player} the weapon {weapon} (Level {level}).</green>"
+  receive-weapon: "<green>You received the {rarity} weapon {weapon} (Level {level})!</green>"
+  invalid-weapon: "<red>Invalid weapon: {weapon}</red>"
+  invalid-player: "<red>Player {player} not found.</red>"
+  cannot-use: "<red>You don't have permission to use this weapon.</red>"
+  broken: "<red>Your {weapon} has broken!</red>"
+  repair-success: "<green>Successfully repaired your {weapon}!</green>"
+  repair-cost: "<yellow>Cost to repair: {cost}</yellow>"
+  levelup: "<green>Your {weapon} has leveled up to level {level}!</green>"
+
+abilities:
+  on-cooldown: "<red>This ability is on cooldown for {time} more seconds.</red>"
+  activated: "<green>Activated {ability}!</green>"
+  not-enough-mana: "<red>Not enough mana to use this ability.</red>"
+  
+rarities:
+  common: "<white>Common</white>"
+  uncommon: "<green>Uncommon</green>"
+  rare: "<blue>Rare</blue>"
+  epic: "<dark_purple>Epic</dark_purple>"
+  legendary: "<gold>Legendary</gold>"
+  mythic: "<gradient:#FF00FF:#00FFFF>Mythic</gradient>"
+
+ui:
+  weapon-info-title: "<gold>{weapon} <gray>- Level {level}</gray></gold>"
+  stats-header: "<yellow>Stats:</yellow>"
+  abilities-header: "<yellow>Abilities:</yellow>"
+  page-navigation: "<gray>Page {current}/{total}</gray>"
+  next-page: "<green>[Next Page]</green>"
+  previous-page: "<green>[Previous Page]</green>"
+  
+commands:
+  help-header: "<gold>===== LegendWeapon Commands =====</gold>"
+  help-footer: "<gold>================================</gold>"
+  help-format: "<yellow>{command}</yellow> - <gray>{description}</gray>"
