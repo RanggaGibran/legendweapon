@@ -43,6 +43,8 @@ public class LegendWeapon extends JavaPlugin {
         weaponManager = new WeaponManager(this);
         weaponManager.loadWeapons();
         
+        particleManager.loadParticles();
+        
         setupDependencies();
         
         commandManager = new CommandManager(this);

@@ -2,6 +2,7 @@ package id.rnggagib.legendweapon.managers;
 
 import id.rnggagib.LegendWeapon;
 import id.rnggagib.legendweapon.particles.ParticleEffect;
+import id.rnggagib.legendweapon.particles.ParticleRegistrationSystem;
 
 import org.bukkit.Particle;
 import org.bukkit.Color;
@@ -16,11 +17,14 @@ public class ParticleManager {
     private final Map<String, ParticleEffect> effects;
     private int particleDistance;
     private int maxParticlesPerAnimation;
+    private ParticleRegistrationSystem registrationSystem;
     
     public ParticleManager(LegendWeapon plugin) {
         this.plugin = plugin;
         this.effects = new HashMap<>();
         loadSettings();
+        
+        this.registrationSystem = new ParticleRegistrationSystem(plugin);
     }
     
     public void loadSettings() {
@@ -31,6 +35,11 @@ public class ParticleManager {
     public void reloadParticles() {
         effects.clear();
         loadSettings();
+        registrationSystem.registerAllEffects();
+    }
+    
+    public void loadParticles() {
+        registrationSystem.registerAllEffects();
     }
     
     public void playParticle(Location location, Particle particle, int count, double offsetX, double offsetY, double offsetZ, double speed) {
@@ -75,5 +84,13 @@ public class ParticleManager {
     
     public int getMaxParticlesPerAnimation() {
         return maxParticlesPerAnimation;
+    }
+    
+    public boolean hasEffect(String effectName) {
+        return effects.containsKey(effectName);
+    }
+    
+    public Map<String, ParticleEffect> getEffects() {
+        return new HashMap<>(effects);
     }
 }
