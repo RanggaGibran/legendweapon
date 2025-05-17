@@ -9,7 +9,7 @@ general:
 
 weapons:
   give-success: "<green>Successfully gave {player} the weapon {weapon} (Level {level}).</green>"
-  receive-weapon: "<green>You received the {rarity} weapon {weapon} (Level {level})!</green>"
+  receive-weapon: "&aYou received {rarity} {weapon} (Level {level})"
   invalid-weapon: "<red>Invalid weapon: {weapon}</red>"
   invalid-player: "<red>Player {player} not found.</red>"
   cannot-use: "<red>You don't have permission to use this weapon.</red>"
@@ -17,11 +17,23 @@ weapons:
   repair-success: "<green>Successfully repaired your {weapon}!</green>"
   repair-cost: "<yellow>Cost to repair: {cost}</yellow>"
   levelup: "<green>Your {weapon} has leveled up to level {level}!</green>"
+  level-up: "&a✨ Your {weapon} has reached level {level}! &a✨"
+  experience-gain: "&7+{experience} EXP for {weapon}"
+  max-level: "&6Your {weapon} has reached maximum level!"
+  upgrade-success: "&aYou successfully upgraded your {weapon} to level {level}!"
+  upgrade-fail: "&cUpgrade failed. Your {weapon} remains at level {level}"
+  remove-socket: "&aYou removed a {gem} from your {weapon}"
+  add-socket: "&aYou added a {gem} to your {weapon}"
 
 abilities:
   on-cooldown: "<red>This ability is on cooldown for {time} more seconds.</red>"
   activated: "<green>Activated {ability}!</green>"
   not-enough-mana: "<red>Not enough mana to use this ability.</red>"
+
+combat:
+  combo-execute: "<yellow>⚔ Executed {combo} combo!</yellow>"
+  parry-success: "<green>⚔ Perfect Parry! Counter-attack damage increased!</green>"
+  area-attack: "<gold>⚔ {attack}!</gold>"
   
 rarities:
   common: "<white>Common</white>"

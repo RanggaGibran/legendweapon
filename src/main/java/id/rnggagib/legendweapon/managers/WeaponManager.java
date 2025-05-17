@@ -6,7 +6,6 @@ import id.rnggagib.legendweapon.models.WeaponType;
 import id.rnggagib.legendweapon.models.WeaponRarity;
 import id.rnggagib.legendweapon.models.abilities.Ability;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
@@ -31,6 +30,7 @@ public class WeaponManager {
     private final Map<String, WeaponType> weaponTypes;
     private final MiniMessage miniMessage;
     private final NamespacedKey weaponKey;
+    private final NamespacedKey levelKey;
     
     public WeaponManager(LegendWeapon plugin) {
         this.plugin = plugin;
@@ -38,6 +38,7 @@ public class WeaponManager {
         this.weaponTypes = new HashMap<>();
         this.miniMessage = MiniMessage.miniMessage();
         this.weaponKey = new NamespacedKey(plugin, "legendary_weapon");
+        this.levelKey = new NamespacedKey(plugin, "weapon_level");
     }
     
     public void loadWeapons() {
@@ -180,11 +181,14 @@ public class WeaponManager {
         componentLore.add(miniMessage.deserialize("<dark_gray>---------------"));
         componentLore.add(miniMessage.deserialize("<yellow>Stats:"));
         
+        double multiplier = plugin.getWeaponProgressionManager().getStatMultiplier(level);
+        
         for (Map.Entry<String, Double> entry : weapon.getAttributes().entrySet()) {
             String attributeName = formatAttributeName(entry.getKey());
-            double value = entry.getValue();
+            double baseValue = entry.getValue();
+            double scaledValue = Math.round(baseValue * multiplier * 10) / 10.0;
             
-            componentLore.add(miniMessage.deserialize("<gray>" + attributeName + ": <white>" + value));
+            componentLore.add(miniMessage.deserialize("<gray>" + attributeName + ": <white>" + scaledValue));
         }
         
         if (!weapon.getAbilities().isEmpty()) {
@@ -199,6 +203,16 @@ public class WeaponManager {
         componentLore.add(miniMessage.deserialize("<dark_gray>---------------"));
         componentLore.add(miniMessage.deserialize("<gray>Level: <white>" + level));
         
+        int exp = 0;
+        int requiredExp = plugin.getWeaponProgressionManager().getExperienceRequired(level);
+        int maxLevel = plugin.getWeaponProgressionManager().getMaxLevel(weapon.getRarity());
+        
+        if (level < maxLevel) {
+            componentLore.add(miniMessage.deserialize("<gray>EXP: <white>" + exp + "/" + requiredExp));
+        } else {
+            componentLore.add(miniMessage.deserialize("<gold>MAXIMUM LEVEL"));
+        }
+        
         List<String> bukkitLore = new ArrayList<>();
         for (Component component : componentLore) {
             String legacyText = LegacyComponentSerializer.legacySection().serialize(component);
@@ -208,7 +222,8 @@ public class WeaponManager {
         
         PersistentDataContainer container = meta.getPersistentDataContainer();
         container.set(weaponKey, PersistentDataType.STRING, id.toLowerCase());
-        container.set(new NamespacedKey(plugin, "weapon_level"), PersistentDataType.INTEGER, level);
+        container.set(levelKey, PersistentDataType.INTEGER, level);
+        container.set(new NamespacedKey(plugin, "weapon_experience"), PersistentDataType.INTEGER, exp);
         
         item.setItemMeta(meta);
         return item;
@@ -285,5 +300,18 @@ public class WeaponManager {
     
     private WeaponType getDefaultWeaponType() {
         return new WeaponType("sword", Material.DIAMOND_SWORD, 1.6, 7.0);
+    }
+    
+    public double getScaledAttributeValue(ItemStack weapon, String attributeId) {
+        if (!isLegendaryWeapon(weapon)) return 0;
+        
+        LegendaryWeapon legendaryWeapon = getWeaponFromItem(weapon);
+        if (legendaryWeapon == null) return 0;
+        
+        double baseValue = legendaryWeapon.getAttributes().getOrDefault(attributeId, 0.0);
+        int level = plugin.getWeaponProgressionManager().getWeaponLevel(weapon);
+        
+        double multiplier = plugin.getWeaponProgressionManager().getStatMultiplier(level);
+        return baseValue * multiplier;
     }
 }

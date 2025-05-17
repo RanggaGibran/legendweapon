@@ -5,10 +5,12 @@ import id.rnggagib.legendweapon.managers.ConfigManager;
 import id.rnggagib.legendweapon.managers.MessageManager;
 import id.rnggagib.legendweapon.managers.ParticleManager;
 import id.rnggagib.legendweapon.managers.WeaponManager;
+import id.rnggagib.legendweapon.managers.WeaponProgressionManager;
 import id.rnggagib.legendweapon.commands.CommandManager;
 import id.rnggagib.legendweapon.listeners.WeaponListener;
 import id.rnggagib.legendweapon.listeners.PlayerListener;
 import id.rnggagib.legendweapon.listeners.AbilityListener;
+import id.rnggagib.legendweapon.listeners.ProgressionListener;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -25,6 +27,7 @@ public class LegendWeapon extends JavaPlugin {
     private WeaponManager weaponManager;
     private ParticleManager particleManager;
     private AbilityManager abilityManager;
+    private WeaponProgressionManager weaponProgressionManager;
     private CommandManager commandManager;
     private BukkitAudiences adventure;
     private Economy economy;
@@ -44,6 +47,8 @@ public class LegendWeapon extends JavaPlugin {
         abilityManager = new AbilityManager(this);
         
         particleManager = new ParticleManager(this);
+        
+        weaponProgressionManager = new WeaponProgressionManager(this);
         
         weaponManager = new WeaponManager(this);
         weaponManager.loadWeapons();
@@ -88,6 +93,7 @@ public class LegendWeapon extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new WeaponListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new AbilityListener(this), this);
+        getServer().getPluginManager().registerEvents(new ProgressionListener(this), this);
     }
     
     public void reload() {
@@ -119,6 +125,10 @@ public class LegendWeapon extends JavaPlugin {
     
     public AbilityManager getAbilityManager() {
         return abilityManager;
+    }
+    
+    public WeaponProgressionManager getWeaponProgressionManager() {
+        return weaponProgressionManager;
     }
     
     public BukkitAudiences adventure() {

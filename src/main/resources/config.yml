@@ -28,3 +28,29 @@ storage:
     username: root
     password: password
     table-prefix: lw_
+
+progression:
+  max-levels:
+    common: 10
+    uncommon: 15
+    rare: 20
+    epic: 25
+    legendary: 30
+    mythic: 40
+  experience:
+    kill-multiplier:
+      common: 1
+      uncommon: 2
+      rare: 3
+      epic: 4
+      legendary: 5
+      mythic: 7
+    base-values:
+      small-mob: 5
+      normal-mob: 10
+      boss-mob: 50
+  scaling:
+    base-multiplier: 0.1
+    damage-multiplier: 0.15
+    critical-multiplier: 0.2
+    ability-multiplier: 0.1
